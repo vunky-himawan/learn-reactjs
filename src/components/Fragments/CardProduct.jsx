@@ -31,11 +31,14 @@ const Body = (props) => {
 };
 
 const Footer = (props) => {
-  const { price } = props;
+  const { price, handleAddToCart, id } = props;
   return (
     <div className="flex justify-between items-center mt-10">
-      <h1 className="font-bold text-2xl">${price}</h1>
-      <Button classname="bg-green-500 hover:bg-black transition-colors duration-500">
+      <h1 className="font-bold text-2xl">
+        Rp{" "}
+        {price.toLocaleString("id-ID", { styles: "currency", currency: "IDR" })}
+      </h1>
+      <Button classname="bg-green-500 hover:bg-black transition-colors duration-500" onClick={() => handleAddToCart(id)}>
         Buy Now
       </Button>
     </div>

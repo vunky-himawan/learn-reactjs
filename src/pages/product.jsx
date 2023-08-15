@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import CardProduct from "../components/Fragments/CardProduct";
 import Button from "../components/Elements/Button";
 
@@ -6,7 +6,7 @@ const products = [
   {
     id: 1,
     name: "Vans Old School",
-    price: 1000,
+    price: 1000000,
     image: "public/pair-trainers.jpg",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, explicabo.",
@@ -14,7 +14,7 @@ const products = [
   {
     id: 2,
     name: "Converse All Stars",
-    price: 900,
+    price: 900000,
     image: "public/pair-trainers.jpg",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, explicabo.",
@@ -22,7 +22,7 @@ const products = [
   {
     id: 3,
     name: "Converse All Stars",
-    price: 900,
+    price: 950000,
     image: "public/pair-trainers.jpg",
     description:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, explicabo.",
@@ -32,10 +32,29 @@ const products = [
 const email = localStorage.getItem("email");
 
 const ProductPage = () => {
+  const [cart, setCart] = useState([
+    {
+      id: 1,
+      qty: 1,
+    },
+  ]);
+
   const handleLogout = () => {
     localStorage.removeItem("email");
     localStorage.removeItem("password");
     window.location.href = "/login";
+  };
+
+  const handleAddToCart = (id) => {
+    if (cart.find((item) => item.id === id)) {
+      setCart(
+        cart.map((item) =>
+          item.id === id ? { ...item, qty: item.qty + 1 } : item
+        )
+      );
+    } else {
+      setCart([...cart, { id, qty: 1 }]);
+    }
   };
 
   return (
@@ -50,9 +69,59 @@ const ProductPage = () => {
             <CardProduct key={p.id}>
               <CardProduct.Header image={p.image} />
               <CardProduct.Body name={p.name}>{p.description}</CardProduct.Body>
-              <CardProduct.Footer price={p.price} />
+              <CardProduct.Footer
+                price={p.price}
+                id={p.id}
+                handleAddToCart={handleAddToCart}
+              />
             </CardProduct>
           ))}
+        </div>
+      </div>
+      <div className="w-full h-screen">
+        <div className="container flex flex-col justify-center items-center h-full mx-auto border border-black">
+          <h1 className="text-xl font-bold text-green-600">Cart</h1>
+          <table className="table-auto border-spacing-10 mt-10">
+            <thead>
+              <tr>
+                <th className="border border-black">Nama</th>
+                <th className="border border-black">Harga</th>
+                <th className="border border-black">Quantity</th>
+                <th className="border border-black">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cart.map((item) => {
+                const product = products.find(
+                  (product) => product.id === item.id
+                );
+                return (
+                  <tr key={item.id}>
+                    <td className="border border-black text-center p-5">
+                      {product.name}
+                    </td>
+                    <td className="border border-black text-center p-5">
+                      Rp{" "}
+                      {product.price.toLocaleString("id-ID", {
+                        styles: "currency",
+                        currency: "IDR",
+                      })}
+                    </td>
+                    <td className="border border-black text-center p-5">
+                      {item.qty}
+                    </td>
+                    <td className="border border-black text-center p-5">
+                      Rp{" "}
+                      {(item.qty * product.price).toLocaleString("id-ID", {
+                        styles: "currency",
+                        currency: "IDR",
+                      })}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       </div>
     </Fragment>
