@@ -33,12 +33,7 @@ const products = [
 const email = localStorage.getItem("email");
 
 const ProductPage = () => {
-  const [cart, setCart] = useState([
-    {
-      id: 1,
-      qty: 1,
-    },
-  ]);
+  const [cart, setCart] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem("cart")) || []);
