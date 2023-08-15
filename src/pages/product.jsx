@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import CardProduct from "../components/Fragments/CardProduct";
 import Button from "../components/Elements/Button";
 import Counter from "../components/Fragments/Counter";
@@ -39,6 +39,21 @@ const ProductPage = () => {
       qty: 1,
     },
   ]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  useEffect(() => {
+    setCart(JSON.parse(localStorage.getItem("cart")) || []);
+  }, []);
+
+  useEffect(() => {
+    if (cart.length > 0) {
+      const sum = cart.reduce((acc, item) => {
+        const product = products.find((product) => product.id === item.id);
+        return acc + product.price * item.qty;
+      }, 0);
+      setTotalPrice(sum);
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+  }, [cart]);
 
   const handleLogout = () => {
     localStorage.removeItem("email");
@@ -121,12 +136,28 @@ const ProductPage = () => {
                   </tr>
                 );
               })}
+              <tr>
+                <td className="border border-black">
+                  <strong>Total Price</strong>
+                </td>
+                <td className="border border-black"></td>
+                <td className="border border-black"></td>
+                <td className="border border-black">
+                  <strong>
+                    Rp
+                    {totalPrice.toLocaleString("id-ID", {
+                      styles: "currency",
+                      currency: "IDR",
+                    })}
+                  </strong>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
       </div>
       <div className="my-20 flex justify-center items-center">
-        <Counter/>
+        <Counter />
       </div>
     </Fragment>
   );
