@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import CardProduct from "../components/Fragments/CardProduct";
 import Button from "../components/Elements/Button";
 import Counter from "../components/Fragments/Counter";
@@ -49,6 +49,16 @@ const ProductPage = () => {
       localStorage.setItem("cart", JSON.stringify(cart));
     }
   }, [cart]);
+
+  const totalPriceRef = useRef(null);
+
+  useEffect(() => {
+    if (cart.length > 0) {
+      totalPriceRef.current.style.display = "table-row";
+    } else {
+      totalPriceRef.current.style.display = "none";
+    }
+  }, [cart]); 
 
   const handleLogout = () => {
     localStorage.removeItem("email");
@@ -131,7 +141,7 @@ const ProductPage = () => {
                   </tr>
                 );
               })}
-              <tr>
+              <tr ref={totalPriceRef}>
                 <td className="border border-black">
                   <strong>Total Price</strong>
                 </td>
