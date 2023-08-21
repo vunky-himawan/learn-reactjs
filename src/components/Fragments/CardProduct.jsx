@@ -13,7 +13,7 @@ const Header = (props) => {
   const { image } = props;
   return (
     <a href="#" className="h-[50%]">
-      <img src={image} alt="" className="w-full h-full object-cover"/>
+      <img src={image} alt="" className="w-full h-full object-cover" />
     </a>
   );
 };
@@ -23,9 +23,9 @@ const Body = (props) => {
   return (
     <div>
       <a href="" className="text-xl font-bold">
-        <h1>{name.substring(0,20)}...</h1>
+        <h1>{name.substring(0, 20)}...</h1>
       </a>
-      <p>{children.substring(0,100)}...</p>
+      <p>{children.substring(0, 100)}...</p>
     </div>
   );
 };
@@ -38,7 +38,10 @@ const Footer = (props) => {
         ${" "}
         {price.toLocaleString("id-ID", { styles: "currency", currency: "USD" })}
       </h1>
-      <Button classname="bg-green-500 hover:bg-black transition-colors duration-500" onClick={() => handleAddToCart(id)}>
+      <Button
+        classname="bg-green-500 hover:bg-black transition-colors duration-500"
+        onClick={() => handleAddToCart(id)}
+      >
         Buy Now
       </Button>
     </div>

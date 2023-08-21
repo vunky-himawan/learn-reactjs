@@ -1,34 +1,39 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import {createBrowserRouter, RouterProvider} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LoginPage from "./pages/login.jsx";
 import RegisterPage from "./pages/register.jsx";
 import ErrorPage from "./pages/404.jsx";
 import ProductPage from "./pages/product";
+import ProfilePage from "./pages/profile";
 
 const router = createBrowserRouter([
   {
-    path:"/",
+    path: "/",
     element: <div>Hello World</div>,
-    errorElement: <ErrorPage/>
+    errorElement: <ErrorPage />,
   },
   {
-    path:"/login",
-    element: <LoginPage/>
+    path: "/login",
+    element: <LoginPage />,
   },
   {
-    path:"/register",
-    element: <RegisterPage/>
+    path: "/register",
+    element: <RegisterPage />,
   },
   {
-    path:"/product",
-    element: <ProductPage/>
-  }
-])
+    path: "/product",
+    element: <ProductPage />,
+  },
+  {
+    path: "/profile",
+    element: <ProfilePage />,
+  },
+]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router}/>
+    <RouterProvider router={router} />
   </React.StrictMode>
 );

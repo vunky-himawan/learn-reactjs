@@ -7,7 +7,6 @@ const LoginForm = () => {
   const [loginFailed, setLoginFailed] = useState("");
   const handleLogin = (e) => {
     e.preventDefault();
-    window.location.href = "/product";
     const data = {
       username: e.target.username.value,
       password: e.target.password.value,
@@ -15,6 +14,7 @@ const LoginForm = () => {
 
     login(data, (status, response) => {
       if (status) {
+        window.location.href = "/product";
         localStorage.setItem("token", response);
       } else {
         setLoginFailed(response.response.data);
