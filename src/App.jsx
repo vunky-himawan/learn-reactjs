@@ -5,7 +5,6 @@ import RegisterPage from "./pages/RegisterPage";
 function App() {
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#1B1D24]">
-      {/* <LoginPage/> */}
       <RegisterPage />
     </div>
   );
