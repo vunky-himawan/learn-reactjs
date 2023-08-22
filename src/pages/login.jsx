@@ -1,7 +1,7 @@
 import LoginForm from "../components/Fragments/LoginForm";
 import AuthLayout from "../components/Layouts/AuthLayout";
 
-const LoginPage = (props) => {
+const LoginPage = () => {
   return (
     <AuthLayout title="Login" type="login">
       <LoginForm />
@@ -10,3 +10,8 @@ const LoginPage = (props) => {
 };
 
 export default LoginPage;
+
+/* 
+"username":"johnd"
+"password":"m38rmF$"
+ */
